@@ -1,5 +1,14 @@
 package org.alejandro.vaca.service;
 
+import org.alejandro.vaca.adapter.SolicitudTicketDTO;
+import org.alejandro.vaca.adapter.TicketDTO;
+import org.alejandro.vaca.domain.SolicitudTicket;
+import org.alejandro.vaca.domain.Ticket;
+import org.alejandro.vaca.gateway.GeneradorID;
+import org.alejandro.vaca.gateway.NotificadorTickets;
+import org.alejandro.vaca.gateway.Reloj;
+import org.alejandro.vaca.repository.TicketRegister;
+
 import java.time.Instant;
 
 public class SistemaDeTickets {

@@ -1,5 +1,7 @@
 package org.alejandro.vaca.adapter;
 
+import org.alejandro.vaca.domain.SolicitudTicket;
+
 public class TicketDTO {
 
     public SolicitudTicket aDominio(SolicitudTicketDTO dto) {

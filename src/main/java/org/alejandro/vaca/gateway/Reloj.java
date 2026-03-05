@@ -1,3 +1,5 @@
+package org.alejandro.vaca.gateway;
+
 import java.time.Instant;
 
 public interface Reloj {
