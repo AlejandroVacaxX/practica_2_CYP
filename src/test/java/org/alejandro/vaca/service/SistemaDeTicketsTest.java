@@ -271,10 +271,10 @@ class SistemaDeTicketsTest {
         }
 
         @Test
-        @DisplayName("Lanza excepcion si el ID de usuario es nulo")
-        public void cancelarUsuarioNuloLanzaExcepcion() {
-            assertThrows(IllegalArgumentException.class, () -> service.cancelar(null, "T-1", "id null"));
-            verifyNoInteractions(notificador);
+        @DisplayName("Integridad: Verifica que se aplique .trim() a los datos")
+        public void cancelarAplicaTrim() {
+            service.cancelar("  User1  ", "  T-1  ", "  Motivo con espacios  ");
+            verify(notificador).notificarCancelacion("User1", "T-1", "Motivo con espacios");
         }
 
         @Test
@@ -287,21 +287,20 @@ class SistemaDeTicketsTest {
         @DisplayName("Lanza excepcion si el motivo es nulo")
         public void cancelarMotivoNuloLanzaExcepcion() {
             assertThrows(IllegalArgumentException.class, () -> service.cancelar("User1", "T-1", null));
+            assertThrows(IllegalArgumentException.class, () -> service.cancelar("User1", "T-1", ""));
         }
 
         @Test
-        @DisplayName("Verifica que una excepcion sea lanzada cuando el id del ticket es null")
-        public void cancelarticketIdEsNull() {
-            assertThrows(IllegalArgumentException.class, () -> service.cancelar(" User1 ", null, " Motivo "));
-
-
+        @DisplayName("Validación de Usuario: Lanza excepción si es nulo o está en blanco")
+        public void cancelarUsuarioInvalidoLanzaExcepcion() {
+            assertThrows(IllegalArgumentException.class, () -> service.cancelar(null, "T-1", "Motivo"));
+            assertThrows(IllegalArgumentException.class, () -> service.cancelar("   ", "T-1", "Motivo"));
+            verifyNoInteractions(notificador);
         }
         @Test
         @DisplayName("Verifica que una excepcion sea lanzada cuando el id del usuario es null")
-        public void cancelarUsuarioTicketEsNull() {
-            assertThrows(IllegalArgumentException.class, () -> service.cancelar(null, " T-1 ", " Motivo "));
-
-
+        public void cancelarTicketNuloLanzaExcepcion() {
+            assertThrows(IllegalArgumentException.class, () -> service.cancelar("User1", null, "Motivo"));
         }
     }
 }
